@@ -80,7 +80,17 @@
                     </select>
                 </div>
 
-                <div class="input-group"><label>Poster URL</label><input type="text" id="mImg" placeholder="Link to .jpg/.png"></div>
+                <div class="input-group" style="grid-column: span 2;">
+    <label>Poster Image</label>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" id="mImg" placeholder="Paste image link...">
+        <label class="util-btn" style="margin:0; flex-shrink:0; cursor:pointer;">
+            📷 Upload
+            <input type="file" id="mFile" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
+        </label>
+    </div>
+    <small style="color: #8b949e; font-size: 0.7rem;">Paste link OR upload a file (will be compressed)</small>
+</div>
                 <div class="input-group"><label>Story Rating (0-10)</label><input type="number" step="0.1" id="mStoryRating"></div>
                 <div class="input-group"><label>Art Rating</label><input type="text" id="mArtRating"></div>
                 

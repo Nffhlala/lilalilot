@@ -1,7 +1,5 @@
 // 1. DATA INITIALIZATION
 let vaultData = [
-    { title: "Death Is The Only Ending For The Villainess", chapters: "183", type: "Manhwa", status: "On Going", genre: ["Fantasy", "Romance"], storyRating: 10, artRating: "10", img: "https://static.wikia.nocookie.net/villains-are-destined-to-die/images/a/a2/Vol_1_Cover.jpg", review: "I'm crying at the corner of my room rn the storyline is so chef kiss" },
-    { title: "I Lost The Leash Of The Yandere Male Lead", chapters: "-", type: "Manhwa", status: "Dropped", genre: ["Romance"], storyRating: 0, artRating: "Meh", img: "", review: "Bro the male lead has double chin. Meh art. Meh fl" }
 ];
 
 let currentFilter = 'All';
@@ -224,4 +222,33 @@ function closeSidebarOnMobile() {
     if (window.innerWidth <= 768) {
         document.getElementById('sidebar').classList.remove('active');
     }
+}
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            // Kita kecilkan gambar supaya tak penuhkan memori browser
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 400; // Saiz poster yang ideal
+            const scaleSize = MAX_WIDTH / img.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scaleSize;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Tukar jadi teks (Base64) dengan kualiti 0.7 (70%)
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+            
+            // Masukkan hasil ke dalam input mImg supaya sistem save macam biasa
+            document.getElementById('mImg').value = compressedBase64;
+            alert("Image uploaded & compressed successfully!");
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
 }
