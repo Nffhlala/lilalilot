@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pep's List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2 class="logo">PEPSI<span>COLA</span></h2>
+        <button class="close-sidebar" onclick="toggleSidebar()">❮</button>
+    </div>
+    
+    <nav>
+        <button onclick="changeSection('All'); closeSidebarOnMobile()">📂 All Collection</button>
+        <button onclick="changeSection('Reading'); closeSidebarOnMobile()">📖 Reading List</button>
+        <button onclick="changeSection('ToRead'); closeSidebarOnMobile()">📌 To-Read</button>
+        <hr>
+        <button class="add-btn" onclick="openModal()">+ Add New Entry</button>
+        <div class="backup-zone">
+            <button class="util-btn" onclick="exportData()">📥 Backup Data</button>
+            <label class="util-btn" for="importFile" style="cursor:pointer; display:block; text-align:center;">📤 Restore Data</label>
+            <input type="file" id="importFile" style="display:none" onchange="importData(event)">
+        </div>
+    </nav>
+</div>
+
+<main class="main-content">
+    <header>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+        
+        <input type="text" id="searchInput" placeholder="Search title, review, or genre..." onkeyup="filterData()">
+    </header>
+
+        <div class="dashboard-header">
+            <h2 id="sectionTitle">All Collection</h2>
+            <div class="count-badge"><span id="total-count">0</span> Titles</div>
+        </div>
+
+        <div class="action-bar" id="actionBar">
+            <div class="sorting-zone">
+                <label>Sort By:</label>
+                <select id="sortOrder" onchange="displayItems()">
+                    <option value="latest">Latest Added</option>
+                    <option value="highRating">Masterpiece (10 → 0)</option>
+                    <option value="lowRating">Meh (0 → 10)</option>
+                    <option value="az">Title (A → Z)</option>
+                    <option value="za">Title (Z → A)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="list-grid" class="grid"></div>
+    </main>
+
+    <div id="entryModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalHeader">Manage Entry</h2>
+            <div class="form-grid">
+                <div class="input-group"><label>Title</label><input type="text" id="mTitle"></div>
+                <div class="input-group"><label>Chapters</label><input type="text" id="mChapters"></div>
+                <div class="input-group">
+                    <label>Type</label>
+                    <select id="mType">
+                        <option value="Manhwa">Manhwa</option>
+                        <option value="Manga">Manga</option>
+                        <option value="Manhua">Manhua</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Status</label>
+                    <select id="mStatus">
+                        <option value="On Going">On Going</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Dropped">Dropped</option>
+                        <option value="Hiatus">Hiatus</option>
+                        <option value="Plan to Read">Plan to Read</option>
+                    </select>
+                </div>
+
+                <div class="input-group"><label>Poster URL</label><input type="text" id="mImg" placeholder="Link to .jpg/.png"></div>
+                <div class="input-group"><label>Story Rating (0-10)</label><input type="number" step="0.1" id="mStoryRating"></div>
+                <div class="input-group"><label>Art Rating</label><input type="text" id="mArtRating"></div>
+                
+                <div class="input-group" style="grid-column: span 2;">
+                    <label>Select Genres (Multi-select)</label>
+                    <select id="mGenreSelect" onchange="addGenreTag()" class="colored-dropdown">
+                        <option value="">-- Choose Genre --</option>
+                        <optgroup label="❤️ Romance & Variasinya" class="grp-romance">
+                            <option value="Romance">Romance</option>
+                            <option value="Romance Fantasy">Romance Fantasy</option>
+                            <option value="Historical Romance">Historical Romance</option>
+                            <option value="Modern Romance">Modern Romance</option>
+                            <option value="Office Romance">Office Romance</option>
+                            <option value="School Romance">School Romance</option>
+                            <option value="Contract Marriage">Contract Marriage</option>
+                            <option value="Fake Dating">Fake Dating</option>
+                            <option value="Slow Burn">Slow Burn</option>
+                            <option value="Angst Romance">Angst Romance</option>
+                            <option value="Healing Romance">Healing Romance</option>
+                            <option value="Second Chance Romance">Second Chance Romance</option>
+                        </optgroup>
+                        <optgroup label="✨ Fantasy" class="grp-fantasy">
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Dark Fantasy">Dark Fantasy</option>
+                            <option value="Urban Fantasy">Urban Fantasy</option>
+                            <option value="Magic Academy">Magic Academy</option>
+                            <option value="Sword & Sorcery">Sword & Sorcery</option>
+                            <option value="Mythology">Mythology</option>
+                            <option value="Gods & Demons">Gods & Demons</option>
+                            <option value="Spirit World">Spirit World</option>
+                        </optgroup>
+                        <optgroup label="🌀 Isekai" class="grp-isekai">
+                            <option value="Isekai">Isekai</option>
+                            <option value="Reincarnation">Reincarnation</option>
+                            <option value="Regression">Regression</option>
+                            <option value="Transmigration">Transmigration</option>
+                            <option value="Villainess">Villainess</option>
+                            <option value="Otome Isekai">Otome Isekai</option>
+                            <option value="Game System World">Game System World</option>
+                            <option value="Parallel World">Parallel World</option>
+                        </optgroup>
+                        <optgroup label="⚔️ Action" class="grp-action">
+                            <option value="Action">Action</option>
+                            <option value="Martial Arts">Martial Arts</option>
+                            <option value="Murim">Murim</option>
+                            <option value="Cultivation">Cultivation</option>
+                            <option value="Superpower">Superpower</option>
+                            <option value="Superhero">Superhero</option>
+                            <option value="Dungeon / Gate">Dungeon / Gate</option>
+                            <option value="Hunter">Hunter</option>
+                            <option value="Leveling System">Leveling System</option>
+                            <option value="Overpowered MC">Overpowered MC</option>
+                        </optgroup>
+                        <optgroup label="🧠 Psychological" class="grp-psych">
+                            <option value="Psychological">Psychological</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Yandere">Yandere</option>
+                            <option value="Revenge">Revenge</option>
+                            <option value="Tragedy">Tragedy</option>
+                        </optgroup>
+                        <optgroup label="🌿 Slice of Life" class="grp-sol">
+                            <option value="Slice of Life">Slice of Life</option>
+                            <option value="School Life">School Life</option>
+                            <option value="Healing">Healing</option>
+                            <option value="Family">Family</option>
+                        </optgroup>
+                        <optgroup label="😂 Comedy" class="grp-comedy">
+                            <option value="Comedy">Comedy</option>
+                            <option value="Rom-Com">Rom-Com</option>
+                        </optgroup>
+                        <optgroup label="🌈 BL / GL" class="grp-lgbt">
+                            <option value="BL">BL</option>
+                            <option value="GL">GL</option>
+                        </optgroup>
+                        <optgroup label="🤖 Supernatural" class="grp-scifi">
+                            <option value="Supernatural">Supernatural</option>
+                            <option value="Vampire">Vampire</option>
+                            <option value="Sci-Fi">Sci-Fi</option>
+                        </optgroup>
+                        <optgroup label="🔞 Warning Content" class="grp-warning">
+                            <option value="Smut">Smut</option>
+                            <option value="Gore">Gore</option>
+                        </optgroup>
+                    </select>
+                    <div id="selectedGenreTags" class="genre-container" style="margin-top: 15px; border: 1px dashed #30363d; padding: 10px; border-radius: 8px; min-height: 40px;"></div>
+                </div>
+
+                <div class="input-group" style="margin-top:15px; grid-column: span 2;">
+                    <label>Review</label>
+                    <textarea id="mReview" rows="3" style="width: 100%; background: #0d1117; color: white; border: 1px solid #30363d; border-radius: 8px; padding: 10px;"></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="display: flex; margin-top: 20px;">
+                <button class="del-btn" id="deleteBtn" onclick="deleteEntry()" style="display:none; background: #da3633; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Delete</button>
+                <div style="flex-grow:1"></div>
+                <button class="cancel-btn" onclick="closeModal()" style="background: #30363d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 10px;">Cancel</button>
+                <button class="save-btn" onclick="saveEntry()" style="background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Save Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

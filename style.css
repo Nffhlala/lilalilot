@@ -1,0 +1,375 @@
+/* RESET & FONTS */
+* { box-sizing: border-box; font-family: 'Arial', 'Helvetica', sans-serif; }
+
+body { margin: 0; display: flex; background-color: #0d1117; color: #e6edf3; }
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px; 
+    height: 100vh; 
+    background: #161b22;
+    padding: 30px 20px; 
+    position: fixed; 
+    border-right: 1px solid #30363d;
+    left: 0; /* Tetap di kiri untuk Desktop */
+    top: 0;
+    transition: 0.3s; /* Smooth gila masa slide */
+    z-index: 1000;
+}
+
+/* Header Sidebar untuk letak Logo & Arrow Back */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.close-sidebar {
+    display: none; 
+    background: #30363d; /* Tambah background sikit biar nampak macam butang */
+    border: none;
+    color: #58a6ff;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.logo { color: #58a6ff; font-weight: 900; font-size: 1.5rem; margin-bottom: 0; }
+.logo span { color: #ffffff; }
+
+nav button {
+    display: block; width: 100%; background: none; border: none;
+    color: #8b949e; text-align: left; padding: 12px;
+    cursor: pointer; font-size: 0.95rem; border-radius: 8px; margin-bottom: 5px;
+}
+
+nav button:hover { background: #21262d; color: #58a6ff; }
+
+.add-btn { background: #238636 !important; color: white !important; font-weight: bold; margin-top: 20px; }
+
+.backup-zone { margin-top: 30px; display: grid; gap: 10px; }
+.util-btn { 
+    font-size: 0.8rem; background: #30363d; color: white; padding: 8px; 
+    border-radius: 6px; text-align: center; cursor: pointer; border: none;
+}
+
+/* MAIN CONTENT */
+.main-content { 
+    margin-left: 260px; 
+    padding: 40px; 
+    width: 100%;
+    transition: 0.3s;
+}
+
+#searchInput {
+    width: 100%; max-width: 600px; background: #0d1117;
+    border: 1px solid #30363d; padding: 15px 25px;
+    border-radius: 30px; color: white; outline: none; transition: 0.3s;
+}
+
+#searchInput:focus { border-color: #58a6ff; box-shadow: 0 0 10px rgba(88,166,255,0.2); }
+
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0; }
+.count-badge { background: #21262d; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+/* GRID & CARDS */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+
+.card {
+    background: #161b22; 
+    border: 1px solid #30363d;
+    border-radius: 12px; 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column;
+    /* Buang padding supaya gambar rapat ke tepi */
+    padding: 0; 
+}
+.card-img { 
+    width: 100%; 
+    aspect-ratio: 2 / 3; 
+    /* 'contain' akan pastikan seluruh gambar nampak tanpa kena potong */
+    object-fit: contain; 
+    display: block;
+    background-color: #0d1117; /* Background gelap supaya blend dengan web */
+    border: none; /* Buang frame/border */
+    padding: 0;
+    margin: 0;
+}
+.card-body {
+    padding: 15px; 
+}
+.card h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; color: #58a6ff; }
+
+.genre-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* --- WARNA TAG GENRE (VERSI BERSIH) --- */
+
+/* --- WARNA TAG GENRE (SETIAP KATEGORI UNIK) --- */
+
+/* 1. Romance (Pink) */
+.genre-romance, .genre-romance-fantasy, .genre-historical-romance, 
+.genre-modern-romance, .genre-office-romance, .genre-school-romance,
+.genre-contract-marriage, .genre-fake-dating, .genre-slow-burn,
+.genre-angst-romance, .genre-healing-romance, .genre-second-chance-romance { 
+    background: #ff79c6 !important; color: #000 !important; 
+}
+
+/* 2. Fantasy (Purple) */
+.genre-fantasy, .genre-dark-fantasy, .genre-urban-fantasy, .genre-magic-academy,
+.genre-sword-socery, .genre-mythology, .genre-gods-demons, .genre-spirit-world { 
+    background: #bd93f9 !important; color: #fff !important; 
+}
+
+/* 3. Isekai & Reincarnation (Deep Purple/Indigo) */
+.genre-isekai, .genre-reincarnation, .genre-regression, .genre-transmigration,
+.genre-villainess, .genre-otome-isekai, .genre-game-system-world, .genre-parallel-world { 
+    background: #6272a4 !important; color: #fff !important; 
+}
+
+/* 4. Action & Murim (Red) */
+.genre-action, .genre-martial-arts, .genre-murim, .genre-cultivation,
+.genre-superpower, .genre-superhero, .genre-dungeon-gate, .genre-hunter,
+.genre-leveling-system, .genre-overpowered-mc, .genre-military { 
+    background: #ff5555 !important; color: #fff !important; 
+}
+
+/* 5. Psychological & Horror (Dark Grey/Black) */
+.genre-psychological, .genre-thriller, .genre-horror, .genre-survival,
+.genre-gore, .genre-mind-games, .genre-yandere, .genre-obsession,
+.genre-revenge, .genre-tragedy { 
+    background: #282a36 !important; color: #ff5555 !important; border: 1px solid #ff5555;
+}
+
+/* 6. Slice of Life & Healing (Soft Green) */
+.genre-slice-of-life, .genre-school-life, .genre-coming-of-age, .genre-friendship,
+.genre-daily-life, .genre-healing, .genre-family, .genre-workplace-life { 
+    background: #50fa7b !important; color: #000 !important; 
+}
+
+/* 7. Mystery & Crime (Orange/Gold) */
+.genre-mystery, .genre-detective, .genre-crime, .genre-mafia, .genre-underworld,
+.genre-legal-drama, .genre-political-drama { 
+    background: #ffb86c !important; color: #000 !important; 
+}
+
+/* 8. Drama & Melodrama (Brown/Tan) */
+.genre-drama, .genre-melodrama, .genre-cheating, .genre-love-triangle, 
+.genre-toxic-relationship, .genre-emotional-trauma, .genre-breakup-divorce { 
+    background: #ffb86c !important; color: #000 !important; opacity: 0.9; /* Beza sikit dengan Mystery */
+    background: #a65e2e !important; color: #fff !important; 
+}
+
+/* 9. Comedy (Yellow) */
+.genre-comedy, .genre-rom-com, .genre-parody, .genre-crack-humor,
+.genre-absurd-comedy, .genre-4koma-style { 
+    background: #f1fa8c !important; color: #000 !important; 
+}
+
+/* 10. BL / GL / LGBTQ (Hot Pink/Purple Mix) */
+.genre-bl, .genre-gl, .genre-lgbtq, .genre-gender-bender, .genre-crossdressing { 
+    background: #ff92df !important; color: #000 !important; 
+}
+
+/* 11. Supernatural (Cyan/Light Blue) */
+.genre-supernatural, .genre-ghost, .genre-vampire, .genre-werewolf { 
+    background: #8be9fd !important; color: #000 !important; 
+}
+
+/* 12. Sci-Fi & Future (Deep Blue/Teal) */
+.genre-scifi, .genre-cyberpunk, .genre-aifuture-tech, 
+.genre-postapocalyptic, .genre-time-travel { 
+    background: #44475a !important; color: #8be9fd !important; 
+}
+
+/* 13. SMUT & WARNING (Crimson Red) */
+.genre-smut { 
+    background: #990000 !important; 
+    color: #fff !important; 
+    font-weight: 900 !important;
+    border: 1px solid #ff0000;
+    /* Panggil animation kat sini */
+    animation: denyut-smut 1.5s infinite;
+}
+@keyframes denyut-smut {
+    0% {
+        box-shadow: 0 0 0 0 rgba(153, 0, 0, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(153, 0, 0, 0);
+        transform: scale(1.05); /* Dia besar sikit masa berdenyut */
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(153, 0, 0, 0);
+        transform: scale(1);
+    }
+}
+/* Default / Others */
+.genre-tag {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+/* Kategori warna dalam dropdown */
+.grp-warning { background-color: #440000; color: #ff5555; }
+
+/* Optional: Effect berdenyut untuk tag Smut */
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+}
+.ratings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; font-size: 0.8rem; }
+.rating-box { background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #30363d; }
+
+.personal-review { font-size: 0.85rem; color: #8b949e; font-style: italic; line-height: 1.5; }
+
+.edit-trigger { 
+    background: none; border: 1px solid #30363d; color: #8b949e; 
+    padding: 8px; width: 100%; border-radius: 0 0 16px 16px; cursor: pointer;
+}
+.edit-trigger:hover { background: #21262d; color: white; }
+
+/* MODAL */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; align-items: center; justify-content: center;}
+.modal-content { background: #161b22; margin: 2% auto; padding: 30px; width: 90%; max-width: 650px; border-radius: 12px; border: 1px solid #30363d; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.input-group label { display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; }
+input, select, textarea { background: #0d1117; border: 1px solid #30363d; color: white; padding: 10px; border-radius: 6px; width: 100%; }
+.modal-footer { display: flex; gap: 10px; margin-top: 30px; }
+.save-btn { background: #238636; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.cancel-btn { background: transparent; color: #8b949e; border: 1px solid #30363d; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
+.del-btn { background: #da3633; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
+.action-bar {
+    display: flex;
+    justify-content: flex-start; /* Alihkan sorting ke kiri */
+    align-items: center;
+    margin-bottom: 25px;
+    background: #161b22;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+}
+.sorting-zone label { font-size: 0.85rem; color: #8b949e; }
+.sorting-zone select {
+    background: #0d1117;
+    color: white;
+    border: 1px solid #30363d;
+    padding: 8px;
+    border-radius: 6px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+.hidden {
+    display: none !important;
+}
+.modal-tag {
+    background: #238636; /* Warna hijau pro */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px;
+    transition: 0.2s;
+}
+.modal-tag:hover {
+    background: #da3633; 
+}
+.modal-tag::after {
+    content: "×";
+    font-size: 1rem;
+}
+.grp-romance { background-color: #4a1a1a; color: #ffadad; }
+.grp-fantasy { background-color: #1a1a4a; color: #adadff; }
+.grp-isekai { background-color: #3d1a4a; color: #deadff; }
+.grp-action { background-color: #1a4a1a; color: #adffad; }
+.grp-psych { background-color: #333333; color: #ff4d4d; }
+.grp-sol { background-color: #1a4a4a; color: #adffff; }
+.grp-mystery { background-color: #2d2d2d; color: #e0e0e0; }
+.grp-drama { background-color: #4a3d1a; color: #ffffad; }
+.grp-comedy { background-color: #4a1a3d; color: #ffadff; }
+.grp-lgbt { background-color: #2a2a2a; color: #ff9ae0; }
+.grp-scifi { background-color: #0d2a2d; color: #9affff; }
+
+/* Reset warna option supaya teks nampak jelas */
+optgroup option {
+    background-color: #161b22;
+    color: white;
+}
+.colored-dropdown {
+    background: #161b22;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    width: 100%;
+}
+.menu-toggle {
+    display: none;
+    background: #238636;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+
+    .sidebar {
+        left: -260px; /* Sorok ke kiri */
+        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    }
+
+    .sidebar.active {
+        left: 0; /* Muncul balik bila dipanggil */
+    }
+
+    .main-content {
+        margin-left: 0; 
+        padding: 20px;
+        width: 100%;
+    }
+
+    .menu-toggle, .close-sidebar {
+        display: block; /* Munculkan butang kat phone */
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Card kecik sikit kat phone */
+    }
+}
+.close-sidebar {
+        display: flex !important; /* Guna flex supaya senang center arrow tu */
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 30px;
+    }
