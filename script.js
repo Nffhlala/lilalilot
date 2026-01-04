@@ -168,18 +168,14 @@ function deleteEntry() {
 }
 
 function saveAndRefresh() {
-    // 1. Simpan ke Local Storage (Auto-save Browser)
+    // 1. Simpan ke Local Storage (Ini autosave yang sebenar)
     localStorage.setItem('manhwaEliteVault', JSON.stringify(vaultData));
     
-    // 2. AUTO-DOWNLOAD FAIL (Simpan terus ke laptop)
-    autoBackupToFile();
-
     // 3. Paparkan semula item & tutup modal
     displayItems();
     closeModal();
     
-    // Notifikasi kecil kat console
-    console.log("Data saved to browser & downloaded as backup!");
+    console.log("Data successfully autosaved to browser!");
 }
 
 function autoBackupToFile() {
