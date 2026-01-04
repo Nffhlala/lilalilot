@@ -178,23 +178,6 @@ function saveAndRefresh() {
     console.log("Data successfully autosaved to browser!");
 }
 
-function autoBackupToFile() {
-    const dataStr = JSON.stringify(vaultData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    
-    const link = document.createElement('a');
-    link.href = url;
-    // Nama fail ada tarikh supaya kau tahu mana yang paling baru
-    const date = new Date().toISOString().slice(0,10);
-    link.download = `peps-list-backup-${date}.json`;
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-}
-
 function closeModal() { 
     document.getElementById('entryModal').style.display = "none"; 
 }
