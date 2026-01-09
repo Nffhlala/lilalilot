@@ -1,120 +1,316 @@
-/* RESET & FONTS */
-* { box-sizing: border-box; font-family: 'Arial', 'Helvetica', sans-serif; }
 
-body { margin: 0; display: flex; background-color: #0d1117; color: #e6edf3; }
+:root {
+    --sidebar-bg: #f9d5d9;
+    --main-bg: #fff0f3;
+    --card-bg: #ffffff; /* Tambah ni supaya sidebar ada warna */
+    --pink-accent: #d46a8e; /* Tambah ni supaya butang/border tak hilang */
+    --accent: #6b8e6b;
+    --text: #4a4a4a;
+    --logo-blue: #3b71ca;
+}
+/* THEME PURPLE (Ikut Screenshot 48) */
+.theme-dark {
+    --sidebar-bg: #1e1e1e; 
+    --main-bg: #121212; 
+    --card-bg: #1e1e1e;
+    --text: #ffffff; 
+    --accent: #86fcfc;
+    --pink-accent: #686868;
+}
+
+.theme-matcha {
+    --sidebar-bg: #d4e4bc; --main-bg: #f0f4e8; --text: #3e4f33; --accent: #789456; --pink-accent: #789456;
+}
+.theme-purple {
+    --sidebar-bg: #1a1625;   /* Ungu sangat gelap untuk sidebar */
+    --main-bg: #0f0c15;      /* Hitam-ungu untuk background utama */
+    --card-bg: #1a1625;      /* Sama dengan sidebar supaya nampak blend */
+    --text: #ffffff;         /* Tulisan putih bersih */
+    --accent: #bb86fc;       /* Ungu cerah untuk highlight */
+    --pink-accent: #bb86fc;  /* Guna ungu cerah juga untuk border */
+}
+* { box-sizing: border-box; }
+body { margin: 0; display: flex; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important; background: var(--main-bg); color: var(--text); }
 
 /* SIDEBAR */
 .sidebar {
-    width: 260px; 
-    height: 100vh; 
-    background: #161b22;
-    padding: 30px 20px; 
-    position: fixed; 
-    border-right: 1px solid #30363d;
-    left: 0; /* Tetap di kiri untuk Desktop */
+    width: 220px; /* Saiz yang kau nak kecilkan tadi */
+    height: 100vh;
+    position: fixed;
+    left: 0;
     top: 0;
-    transition: 0.3s; /* Smooth gila masa slide */
+    background-color: var(--sidebar-bg) !important;
+    border-right: 1px solid var(--pink-accent);
+    padding: 20px;
+    transition: 0.3s;
     z-index: 1000;
 }
 
-/* Header Sidebar untuk letak Logo & Arrow Back */
-.sidebar-header {
+main {
+    margin-left: 200px !important; /* Mesti sama dengan lebar sidebar */
+    padding-top: 20px !important;
+    padding-left: 0px !important;  /* Kecilkan padding kiri supaya rapat */
+    padding-right: 30px !important;
+    width: calc(100% - 220px) !important;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-.close-sidebar {
-    display: none; 
-    background: #30363d; /* Tambah background sikit biar nampak macam butang */
-    border: none;
-    color: #58a6ff;
-    font-size: 1.2rem;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    line-height: 1;
-}
-
-.logo { color: #58a6ff; font-weight: 900; font-size: 1.5rem; margin-bottom: 0; }
-.logo span { color: #ffffff; }
-
-nav button {
-    display: block; width: 100%; background: none; border: none;
-    color: #8b949e; text-align: left; padding: 12px;
-    cursor: pointer; font-size: 0.95rem; border-radius: 8px; margin-bottom: 5px;
-}
-
-nav button:hover { background: #21262d; color: #58a6ff; }
-
-.add-btn { background: #238636 !important; color: white !important; font-weight: bold; margin-top: 20px; }
-
-.backup-zone { margin-top: 30px; display: grid; gap: 10px; }
-.util-btn { 
-    font-size: 0.8rem; background: #30363d; color: white; padding: 8px; 
-    border-radius: 6px; text-align: center; cursor: pointer; border: none;
-}
-
-/* MAIN CONTENT */
-.main-content { 
-    margin-left: 260px; 
-    padding: 40px; 
-    width: 100%;
-    transition: 0.3s;
-}
-
-#searchInput {
-    width: 100%; max-width: 600px; background: #0d1117;
-    border: 1px solid #30363d; padding: 15px 25px;
-    border-radius: 30px; color: white; outline: none; transition: 0.3s;
-}
-
-#searchInput:focus { border-color: #58a6ff; box-shadow: 0 0 10px rgba(88,166,255,0.2); }
-
-.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0; }
-.count-badge { background: #21262d; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
-
-/* GRID & CARDS */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-
-.card {
-    background: #161b22; 
-    border: 1px solid #30363d;
-    border-radius: 12px; 
-    overflow: hidden; 
-    display: flex; 
     flex-direction: column;
-    /* Buang padding supaya gambar rapat ke tepi */
-    padding: 0; 
 }
-.card-img { 
-    width: 100%; 
-    aspect-ratio: 2 / 3; 
-    /* 'contain' akan pastikan seluruh gambar nampak tanpa kena potong */
-    object-fit: contain; 
-    display: block;
-    background-color: #0d1117; /* Background gelap supaya blend dengan web */
-    border: none; /* Buang frame/border */
-    padding: 0;
-    margin: 0;
-}
-.card-body {
-    padding: 15px; 
-}
-.card h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; color: #58a6ff; }
 
+.sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.logo { font-size: 22px; font-weight: 900; color: var(--logo-blue); margin: 0; letter-spacing: -1px; margin-bottom: 20px;  }
+.logo span { color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+
+.theme-selection { display: flex; gap: 10px; margin-bottom: 40px; }
+.theme-btn { 
+    width: 35px; height: 35px; border-radius: 8px; border: 2px solid #555; 
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.theme-btn.dark { background: #121212; color: white; }
+.theme-btn.matcha { background: #8fb9a8; }
+.theme-btn.pink { background: #f9d5d9; }
+
+.side-nav a {
+    display: flex; align-items: center; gap: 15px;
+    text-decoration: none; color: var(--text); font-weight: 500;
+    padding: 12px 0; opacity: 0.7; transition: 0.3s;
+}
+.side-nav a.active, .side-nav a:hover { opacity: 1; font-weight: bold; }
+
+.btn-add-entry {
+    background: #7ca982; color: white; border: none; padding: 14px;
+    border-radius: 12px; font-weight: bold; margin: 30px 0; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-footer { margin-top: auto; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
+.footer-link { 
+    background: none; border: none; display: flex; align-items: center; gap: 10px;
+    color: var(--text); opacity: 0.6; padding: 8px 0; cursor: pointer; width: 100%;
+}
+
+.content-header { display: flex; justify-content: space-between; align-items: center; }
+/* 1. Target kotak select itu sendiri */
+#entryModal select {
+    background-color: var(--sidebar-bg); /* Warna gelap sikit */
+    color: #ffffff !important;           /* Tulisan wajib putih */
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 2. Target isi dalam (pilihan-pilihan tu) */
+#entryModal select option {
+    background-color: var(--sidebar-bg) !important; /* Warna background list */
+    color: #ffffff !important;            /* Tulisan list */
+    padding: 10px;
+}
+
+/* 3. Untuk Chrome & Safari (Kadang-kadang degil) */
+#entryModal select:focus {
+    background-color: var(--sidebar-bg) !important;
+    color: #ffffff !important;
+}
+/* MODAL STYLES */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    /* Gunakan flex untuk pastikan modal-content sentiasa center */
+    display: none; /* Akan tukar jadi 'flex' melalui JS openModal */
+    align-items: center; 
+    justify-content: center; 
+}
+
+.modal-content {
+    background-color: #1a1625; /* Dah buang double semicolon */
+    color: var(--text) !important;
+    /* Kita bagi border putih nipis sebagai base supaya tak tenggelam */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important; 
+    border-radius: 15px;
+    padding: 25px;
+    font-size: 13px !important;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1001;
+    max-height: 90vh;
+    overflow-y: auto; /* Munculkan scrollbar kalau konten panjang */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+}
+
+/* --- TEMA PURPLE --- */
+/* Paksa border jadi ungu terang dan bagi efek GLOW */
+[data-theme="purple"] .modal-content {
+    border: 2px solid #a29bfe !important; 
+    box-shadow: 0 0 20px rgba(162, 155, 254, 0.4) !important;
+}
+
+/* --- TEMA DARK --- */
+/* Paksa border jadi kelabu terang/putih supaya nampak frame kotak */
+[data-theme="dark"] .modal-content {
+    border: 2px solid #ffffff !important; /* Guna putih terus bang baru nampak! */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1) !important;
+}
+.modal-body {
+    padding: 20px;
+    overflow-y: auto; /* Scroll hanya di dalam badan modal */
+    flex-grow: 1;
+}
+
+/* Cantikkan scrollbar modal-body (Optional tapi Pro) */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+    background: rgba(128,128,128,0.3);
+    border-radius: 10px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: rgba(0,0,0,0.2); 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-right {
+    display: flex;
+    gap: 10px;
+}
+
+/* Input Styles */
+.modal-content input, 
+.modal-content select, 
+.modal-content textarea {
+    width: 100%; /* Pastikan penuh */
+    box-sizing: border-box; /* Padding tak ganggu width */
+    background: rgba(128, 128, 128, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--text-color);
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.modal-content input:focus, 
+.modal-content select:focus {
+    outline: none;
+    border-color: var(--pink-accent);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.8;
+    color: var(--text-color);
+}
 .genre-tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-size: 0.65rem;
+    font-size: 10px;
     font-weight: bold;
-    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px; /* Kotak sikit tapi bucu tumpul */
+    text-transform: capitalize;
+    color: #ffffff !important; /* Tulisan sentiasa putih biar nampak jelas */
+    display: inline-block;
+}
+body:not(.theme-dark):not(.theme-purple) .modal-content input,
+body:not(.theme-dark):not(.theme-purple) .modal-content select,
+body:not(.theme-dark):not(.theme-purple) .modal-content textarea,
+body:not(.theme-dark):not(.theme-purple) .genre-select {
+    background-color: #ffffff !important; /* Paksa jadi putih bersih */
+    color: #333333 !important;           /* Tulisan jadi gelap (kelabu gelap/hitam) */
+    border: 1px solid #dddddd !important; /* Border nipis supaya nampak shape kotak */
 }
 
-/* --- WARNA TAG GENRE (VERSI BERSIH) --- */
+/* Pastikan label (tajuk input) pun nampak jelas kat tema cerah */
+body:not(.theme-dark):not(.theme-purple) .modal-content label {
+    color: #555555 !important;
+    opacity: 1;
+}
 
-/* --- WARNA TAG GENRE (SETIAP KATEGORI UNIK) --- */
+/* Placeholder untuk tema cerah */
+body:not(.theme-dark):not(.theme-purple) .modal-content input::placeholder,
+body:not(.theme-dark):not(.theme-purple) .modal-content textarea::placeholder {
+    color: #999999 !important;
+}
+.poster-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.btn-upload, #entryModal button[onclick*="upload"] {
+    background-color: #ffffff !important; 
+    color: #333333 !important;           
+    border: 1px solid #ccc !important;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    height: 40px; /* Samakan tinggi dengan input */
+}
+
+.btn-upload:hover {
+    background-color: #f0f0f0 !important;
+}
+.genre-select { 
+    height: 45px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid var(--pink-accent) !important;
+    outline: none;
+}
+#selectedGenreTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 120px; /* Limitkan tinggi */
+    overflow-y: auto;  /* Kalau banyak sangat genre, dia scroll dalam ni je */
+    margin-bottom: 15px;
+    padding: 5px;
+}
+/* 1. Kalau dalam Tema GELAP (Dark/Purple) */
+body.theme-purple .genre-select,
+body.theme-dark .genre-select {
+    background-color: #1a1625 !important; /* Warna ungu gelap modal */
+    color: #ffffff !important;           /* Tulisan putih */
+    border: 1px solid var(--pink-accent) !important;
+}
+
+body.theme-purple .genre-select option,
+body.theme-dark .genre-select option {
+    background-color: #1a1625 !important; /* Paksa pilihan jadi gelap */
+    color: #ffffff !important;           /* Paksa tulisan jadi putih */
+}
+
+/* 2. KHUSUS UNTUK TEMA CERAH (PINK & MATCHA) */
+body:not(.theme-purple):not(.theme-dark) .genre-select {
+    background-color: #ffffff !important; /* Warna putih */
+    color: #333333 !important;           /* Tulisan gelap */
+    border: 1px solid var(--pink-accent) !important;
+}
+
+body:not(.theme-purple):not(.theme-dark) .genre-select option {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* 3. WARNA MASA GENRE DIPILIH (HIGHLIGHT) */
+.genre-select option:checked {
+    background-color: var(--pink-accent) !important;
+    color: #ffffff !important;
+}
 
 /* 1. Romance (Pink) */
 .genre-romance, .genre-romance-fantasy, .genre-historical-romance, 
@@ -126,7 +322,7 @@ nav button:hover { background: #21262d; color: #58a6ff; }
 
 /* 2. Fantasy (Purple) */
 .genre-fantasy, .genre-dark-fantasy, .genre-urban-fantasy, .genre-magic-academy,
-.genre-sword-socery, .genre-mythology, .genre-gods-demons, .genre-spirit-world { 
+.genre-sword-sorcery, .genre-mythology, .genre-gods-demons, .genre-spirit-world { 
     background: #bd93f9 !important; color: #fff !important; 
 }
 
@@ -144,10 +340,9 @@ nav button:hover { background: #21262d; color: #58a6ff; }
 }
 
 /* 5. Psychological & Horror (Dark Grey/Black) */
-.genre-psychological, .genre-thriller, .genre-horror, .genre-survival,
-.genre-gore, .genre-mind-games, .genre-yandere, .genre-obsession,
+.genre-psychological, .genre-thriller, .genre-horror, .genre-survival, .genre-mind-games, .genre-yandere, .genre-obsession,
 .genre-revenge, .genre-tragedy { 
-    background: #282a36 !important; color: #ff5555 !important; border: 1px solid #ff5555;
+    background: #282a36 !important; color: #ff5555 !important; border: 1px solid #ff5555 !important;
 }
 
 /* 6. Slice of Life & Healing (Soft Green) */
@@ -165,7 +360,6 @@ nav button:hover { background: #21262d; color: #58a6ff; }
 /* 8. Drama & Melodrama (Brown/Tan) */
 .genre-drama, .genre-melodrama, .genre-cheating, .genre-love-triangle, 
 .genre-toxic-relationship, .genre-emotional-trauma, .genre-breakup-divorce { 
-    background: #ffb86c !important; color: #000 !important; opacity: 0.9; /* Beza sikit dengan Mystery */
     background: #a65e2e !important; color: #fff !important; 
 }
 
@@ -175,7 +369,7 @@ nav button:hover { background: #21262d; color: #58a6ff; }
     background: #f1fa8c !important; color: #000 !important; 
 }
 
-/* 10. BL / GL / LGBTQ (Hot Pink/Purple Mix) */
+/* 10. BL / GL / LGBTQ (Hot Pink) */
 .genre-bl, .genre-gl, .genre-lgbtq, .genre-gender-bender, .genre-crossdressing { 
     background: #ff92df !important; color: #000 !important; 
 }
@@ -185,191 +379,703 @@ nav button:hover { background: #21262d; color: #58a6ff; }
     background: #8be9fd !important; color: #000 !important; 
 }
 
-/* 12. Sci-Fi & Future (Deep Blue/Teal) */
+/* 12. Sci-Fi & Future (Deep Blue) */
 .genre-scifi, .genre-cyberpunk, .genre-aifuture-tech, 
 .genre-postapocalyptic, .genre-time-travel { 
     background: #44475a !important; color: #8be9fd !important; 
 }
 
 /* 13. SMUT & WARNING (Crimson Red) */
-.genre-smut { 
+.genre-smut, .genre-gore { 
     background: #990000 !important; 
     color: #fff !important; 
     font-weight: 900 !important;
-    border: 1px solid #ff0000;
-    /* Panggil animation kat sini */
+    border: 1px solid #ff0000 !important;
     animation: denyut-smut 1.5s infinite;
 }
+
+/* ANIMASI DENYUT */
 @keyframes denyut-smut {
-    0% {
-        box-shadow: 0 0 0 0 rgba(153, 0, 0, 0.7);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 0 0 8px rgba(153, 0, 0, 0);
-        transform: scale(1.05); /* Dia besar sikit masa berdenyut */
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(153, 0, 0, 0);
-        transform: scale(1);
-    }
-}
-/* Default / Others */
-.genre-tag {
-    font-weight: bold;
-    text-transform: capitalize;
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
 }
 
-/* Kategori warna dalam dropdown */
-.grp-warning { background-color: #440000; color: #ff5555; }
-
-/* Optional: Effect berdenyut untuk tag Smut */
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 0, 85, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
+.btn-submit { background: #7ca982; color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+#mainTitle span:hover {
+    opacity: 0.7;
+    transform: translateX(-5px); /* Efek gerak sikit bila hover */
+    transition: 0.3s;
 }
-.ratings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; font-size: 0.8rem; }
-.rating-box { background: #0d1117; padding: 8px; border-radius: 6px; border: 1px solid #30363d; }
 
-.personal-review { font-size: 0.85rem; color: #8b949e; font-style: italic; line-height: 1.5; }
-
-.edit-trigger { 
-    background: none; border: 1px solid #30363d; color: #8b949e; 
-    padding: 8px; width: 100%; border-radius: 0 0 16px 16px; cursor: pointer;
-}
-.edit-trigger:hover { background: #21262d; color: white; }
-
-/* MODAL */
-.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; align-items: center; justify-content: center;}
-.modal-content { background: #161b22; margin: 2% auto; padding: 30px; width: 90%; max-width: 650px; border-radius: 12px; border: 1px solid #30363d; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.input-group label { display: block; font-size: 0.8rem; color: #8b949e; margin-bottom: 5px; }
-input, select, textarea { background: #0d1117; border: 1px solid #30363d; color: white; padding: 10px; border-radius: 6px; width: 100%; }
-.modal-footer { display: flex; gap: 10px; margin-top: 30px; }
-.save-btn { background: #238636; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-.cancel-btn { background: transparent; color: #8b949e; border: 1px solid #30363d; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
-.del-btn { background: #da3633; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
-.action-bar {
+#mainTitle {
     display: flex;
-    justify-content: flex-start; /* Alihkan sorting ke kiri */
     align-items: center;
-    margin-bottom: 25px;
-    background: #161b22;
-    padding: 15px 20px;
+}
+/* SEARCH BAR */
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start; /* Rapat kiri */
+}
+.search-container input {
+    width: 50%;
+    background: var(--sidebar-bg); /* Biar dia ikut theme */
+    color: var(--text);
+    padding: 15px 25px;
+    border-radius: 50px;
+    border-right: 1px solid var(--pink-accent) !important;
+    font-size: 15px;
+    outline: none;
+}
+
+/* SORT & SURPRISE ROW */
+.filter-row {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg) !important; /* WAJIB guna card-bg supaya gelap dalam dark theme */
+    padding: 10px 15px;
     border-radius: 12px;
-    border: 1px solid #30363d;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    gap: 15px;
+    margin: 20px 0;
+    width: fit-content; /* Biar dia lebar ikut isi je, tak melarat ke kanan */
+    min-width: 350px;
 }
-.sorting-zone label { font-size: 0.85rem; color: #8b949e; }
-.sorting-zone select {
-    background: #0d1117;
-    color: white;
-    border: 1px solid #30363d;
-    padding: 8px;
-    border-radius: 6px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-.genre-container {
+/* Container luar Sort By */
+.sort-box {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 10px 0;
-}
-.hidden {
-    display: none !important;
-}
-.modal-tag {
-    background: #238636; /* Warna hijau pro */
-    color: white;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    margin: 4px;
+    gap: 10px;
+    flex: 1;
+    background: transparent;
+    color: var(--text); /* Pastikan tulisan "Sort By:" ikut tema */
+}
+
+/* Kotak Dropdown (Wrapper) - Kita buat dia slim & gelap */
+.sort-dropdown-wrapper {
+    flex: 1;
+    border: 1px solid var(--pink-accent); 
+    border-radius: 8px; 
+    padding: 0 10px;
+    background: var(--sidebar-bg) !important; /* Paksa ikut warna gelap sidebar */
+    display: flex;
+    align-items: center;
+    height: 38px; 
+    position: relative;
+}
+
+/* Tulisan di dalam select */
+.sort-dropdown-wrapper select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent !important;
+    font-weight: bold;
+    color: var(--text) !important; /* Tulisan putih dalam Dark/Purple theme */
+    cursor: pointer;
+    font-size: 14px;
+    appearance: none; /* Buang arrow asal browser */
+    -webkit-appearance: none;
+}
+
+/* Anak panah custom */
+.sort-dropdown-wrapper::after {
+    content: '▼';
+    font-size: 10px;
+    color: var(--text);
+    margin-left: -15px; /* Adjust kedudukan arrow */
+    pointer-events: none;
+}
+
+/* PENTING: Warna list pilihan masa klik (Options) */
+.sort-dropdown-wrapper select option {
+    background-color: var(--sidebar-bg) !important; /* Box pilihan jadi gelap */
+    color: var(--text) !important;                   /* Tulisan pilihan jadi cerah */
+    padding: 10px;
+}
+/* KHUSUS UNTUK TEMA CERAH (PINK & MATCHA) */
+/* Target kotak dropdown dan semua option di dalamnya */
+body:not(.theme-dark):not(.theme-purple) #entryModal select,
+body:not(.theme-dark):not(.theme-purple) #entryModal select option,
+body:not(.theme-dark):not(.theme-purple) .sort-dropdown-wrapper select,
+body:not(.theme-dark):not(.theme-purple) .sort-dropdown-wrapper select option {
+    background-color: #ffffff !important; /* Background putih bersih */
+    color: #000000 !important;           /* Tulisan hitam pekat */
+}
+
+/* Pastikan bila user klik (focus), warna tak lari */
+body:not(.theme-dark):not(.theme-purple) select:focus {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Tambahan: Pastikan border dropdown nampak sikit dalam mode cerah */
+body:not(.theme-dark):not(.theme-purple) .sort-dropdown-wrapper {
+    background: #ffffff !important;
+    border: 1px solid var(--pink-accent);
+}
+.surprise-btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px; /* Ikut kesesuaian */
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap; /* Supaya teks tak turun bawah */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+[data-theme="dark"] .surprise-btn {
+    background: #ffffff !important; /* Warna Biru Neon */
+    color: #121212 !important;      /* Tulisan jadi hitam pekat supaya jelas */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+[data-theme="purple"] .surprise-btn {
+    background: var(--pink-accent) !important;
+    color: white !important;
+    box-shadow: none;
+}
+[data-theme="matcha"] .surprise-btn {
+    background: var(--pink-accent) !important;
+    color: white !important;
+    box-shadow: none;
+}
+[data-theme="pink"] .surprise-btn {
+    background: var(--pink-accent) !important;
+    color: white !important;
+    box-shadow: none;
+}
+.surprise-btn span {
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+
+.stats-row { display: flex; gap: 20px; margin-bottom: 30px; }
+.stat-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    flex: 1;
+    min-width: 180px;
+    max-width: 250px;
+    /* Tambah border keliling nipis */
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+    border-left: 6px solid var(--pink-accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+
+}
+.stat-card h2 { 
+    margin: 0; 
+    font-size: 35px;  
+}
+[data-theme="dark"] .stat-card h2 {
+    color: white !important;
+    box-shadow: none;
+}
+[data-theme="pink"] .stat-card h2 {
+    color: var(--pink-accent);
+    box-shadow: none;
+}
+[data-theme="purple"] .stat-card h2 {
+    color: var(--pink-accent);
+    box-shadow: none;
+}
+[data-theme="matcha"] .stat-card h2 {
+    color: var(--pink-accent);
+    box-shadow: none;
+}
+.stat-card p { 
+    margin: 0; 
+    font-size: 11px; 
+    font-weight: 500;
+    color: var(--text); 
+    opacity: 0.7;
+    letter-spacing: 1px; 
+    text-transform: uppercase;
+}
+.card-title-text {
+    font-family: Arial, Helvetica, sans-serif!important;
+    font-weight: 600 !important; /* Ini yang buat dia tebal macam gambar rujukan */
+    font-size: 18px !important;
+    color: var(--text) !important;
+    margin: 10px 0;
+    line-height: 1.5;
+} 
+/* Cari atau tambah kod ni */
+.entry-card p, .card p {
+    font-size: 15px !important; /* Kecilkan saiz font */
+    color: var(--text) !important;
+    opacity: 0.7; /* Bagi dia malap sikit biar tak serabut mata */
+    font-style: italic; /* Buat italic baru nampak macam review/quotes */
+    margin: 5px 0 10px 0;
+    line-height: 1.4;
+    font-weight: 5px;
+    
+    /* Tambah ni kalau nak limit 2 baris je (supaya kad tak jadi panjang sangat) */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card {
+    background: var(--card-bg);
+    border: 0.8px solid var(--pink-accent);/* Border untuk kad */
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: var(--text);
+}
+.card img {
+    width: 100%;
+    height: 400px; /* Kita tinggikan dari 300px ke 380px supaya nampak lebih 'tall' */
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+}
+/* Kita target butang Modify Entry secara spesifik */
+/* --- BASE STYLE (Untuk semua) --- */
+.card button, 
+button[onclick*="openEditModal"] {
+    border: 1px solid transparent; /* Base */
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* --- PURPLE THEME --- */
+[data-theme="purple"] .card button,
+[data-theme="purple"] button[onclick*="openEditModal"] {
+    border-color: #a29bfe !important; /* Ungu terang */
+    color: #a29bfe !important;
+    box-shadow: 0 0 5px rgba(162, 155, 254, 0.2);
+}
+[data-theme="purple"] .card button:hover {
+    background: #a29bfe !important;
+    color: #1a1625 !important;
+}
+
+/* --- MATCHA THEME --- */
+[data-theme="matcha"] .card button,
+[data-theme="matcha"] button[onclick*="openEditModal"] {
+    border-color: #1f4932 !important; /* Hijau matcha/soft blue-green */
+    color: #319764 !important;
+}
+[data-theme="matcha"] .card button:hover {
+    background: #449472 !important;
+    color: #1e272e !important;
+}
+
+/* --- PINK THEME --- */
+[data-theme="pink"] .card button,
+[data-theme="pink"] button[onclick*="openEditModal"] {
+    border-color: #ff9ff3 !important; /* Pink cerah */
+    color: #d3379f !important;
+}
+[data-theme="pink"] .card button:hover {
+    background: #ff9ff3 !important;
+    color: #2f3542 !important;
+}
+
+/* --- DARK THEME --- */
+[data-theme="dark"] .card button,
+[data-theme="dark"] button[onclick*="openEditModal"] {
+    border-color: #ffffff !important; /* Putih solid */
+    color: #ffffff !important;
+    border: 5px
+}
+[data-theme="dark"] .card button:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* GRID CONTAINER */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+/* MODAL STYLES */
+.modal-content {
+    background-color: var(--sidebar-bg) !important; 
+    color: var(--pink-accent) !important;
+    border: 2px solid var(--pink-accent) !important; 
+    border-radius: 15px;
+    padding: 25px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1001;
+}
+.modal-content input, 
+.modal-content select, 
+.modal-content textarea {
+    width: 100%;
+    background: rgba(128, 128, 128, 0.05) !important;
+    border: 1px solid rgba(128, 128, 128, 0.2) !important;
+    color: var(--text) !important; /* TUKAR DARI #ffffff KE var(--text) */
+}
+/* GUNA KOD NI UNTUK PINK & MATCHA */
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 80vh;
+    padding-right: 10px;
+}
+
+/* Custom Scrollbar */
+.scrollable::-webkit-scrollbar { width: 6px; }
+.scrollable::-webkit-scrollbar-thumb { background: var(--pink-accent); border-radius: 10px; }
+
+.input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.input-group label {
+    margin-bottom: 2px; /* Kecilkan jarak antara label dan bintang */
+}
+
+input, select, textarea {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+}
+
+/* STAR RATING */
+/* --- BAHAGIAN INPUT (MODAL) --- */
+.star-rating {
+    display: flex;
+    margin-top: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
+.star-rating i {
+    cursor: pointer;
+    font-size: 18px;
+    /* Ganti dari putih telus ke kelabu cair supaya nampak masa light mode */
+    color: #ccc; 
     transition: 0.2s;
 }
-.modal-tag:hover {
-    background: #da3633; 
+body:not(.theme-dark):not(.theme-purple) .star-rating i {
+    color: #888888; /* Kelabu gelap sikit supaya nampak */
 }
-.modal-tag::after {
-    content: "×";
-    font-size: 1rem;
+.star-rating i.fas.fa-star-half-alt {
+    color: #FFD700 !important;
 }
-.grp-romance { background-color: #4a1a1a; color: #ffadad; }
-.grp-fantasy { background-color: #1a1a4a; color: #adadff; }
-.grp-isekai { background-color: #3d1a4a; color: #deadff; }
-.grp-action { background-color: #1a4a1a; color: #adffad; }
-.grp-psych { background-color: #333333; color: #ff4d4d; }
-.grp-sol { background-color: #1a4a4a; color: #adffff; }
-.grp-mystery { background-color: #2d2d2d; color: #e0e0e0; }
-.grp-drama { background-color: #4a3d1a; color: #ffffad; }
-.grp-comedy { background-color: #4a1a3d; color: #ffadff; }
-.grp-lgbt { background-color: #2a2a2a; color: #ff9ae0; }
-.grp-scifi { background-color: #0d2a2d; color: #9affff; }
+/* Warna kuning bila hover atau active */
+.star-rating i:hover,
+.star-rating i:hover ~ i,
+.star-rating i.active,
+.star-rating i.active ~ i {
+    color: #FFD700 !important; /* Kuning Emas Solid */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
 
-/* Reset warna option supaya teks nampak jelas */
-optgroup option {
-    background-color: #161b22;
-    color: white;
+/* --- BAHAGIAN PAPARAN (CARD) --- */
+.rating-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 }
-.colored-dropdown {
-    background: #161b22;
+
+.rating-box {
+    background: var(--sidebar-bg) !important;
     color: white;
-    padding: 10px;
+    padding: 5px 12px;
     border-radius: 8px;
-    border: 1px solid #30363d;
-    width: 100%;
+    font-size: 13px; /* Kecilkan sikit biar nampak premium */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.menu-toggle {
-    display: none;
-    background: #238636;
+
+.rating-box i {
+    color: #FFD700 !important; /* Kuning Emas Solid */
+    font-size: 12px !important;
+    margin-right: 2px;
+    /* Tambah shadow sikit biar bintang tu 'glow' */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.4); 
+}
+.rating-row .input-group {
+    margin-bottom: 10px; /* Jarak antara baris Story dan Art */
+}
+.btn-save {
+    background-color: #48bb78 !important;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+.btn-cancel {
+    background-color: #4a5568 !important;
+}
+
+/* Butang Delete (Merah) */
+.btn-delete {
+    background-color: #f56565 !important;
+}
+
+#reviewModal {
+    z-index: 9999 !important; /* Biar dia duduk paling atas sekali */
+}
+/* Container untuk button toggle */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px; /* Letak kat luar sidebar */
+    z-index: 1001; /* Supaya sentiasa kat atas */
+    background: var(--accent) !important;
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     cursor: pointer;
-    font-weight: bold;
+    transition: all 0.3s ease;
 }
-@media (max-width: 768px) {
 
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Logic untuk skrin phone (Mobile Responsive) */
+@media (max-width: 768px) {
     .sidebar {
-        left: -260px; /* Sorok ke kiri */
-        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+        left: -210px; /* Sembunyi ke kiri (lebar + sedikit extra) */
+        width: 200px;
     }
 
     .sidebar.active {
-        left: 0; /* Muncul balik bila dipanggil */
+        left: 0; /* Slide masuk */
     }
 
-    .main-content {
-        margin-left: 0; 
-        padding: 20px;
-        width: 100%;
+    main {
+        margin-left: 0; /* Content penuhi skrin kat phone */
     }
 
-    .menu-toggle, .close-sidebar {
-        display: block; /* Munculkan butang kat phone */
+    .mobile-open-btn {
+        display: block; /* Muncul kat phone sahaja */
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 99;
+        background: var(--accent) !important;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        cursor: pointer;
     }
 
-    .grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Card kecik sikit kat phone */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.6);
+        z-index: 999;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
     }
 }
-.close-sidebar {
-        display: flex !important; /* Guna flex supaya senang center arrow tu */
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .sidebar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 30px;
-    }
+
+/* Button sedia ada */
+.toggle-btn {
+    background: var(--pink-accent) !important;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.folder-section {
+    margin-top: 30px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.folder-header h3 {
+    font-size: 16px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+/* Susunan Grid Folder */
+.folder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+/* Kad Folder Individu */
+.folder-item {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(212, 106, 142, 0.1);
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.folder-item:hover {
+    transform: translateY(-3px);
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-color: var(--pink-accent);
+}
+
+.folder-icon {
+    font-size: 24px;
+    color: var(--pink-accent); /* Warna folder ikut tema */
+    margin-bottom: 8px;
+}
+
+.folder-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.folder-count {
+    font-size: 10px;
+    color: #888;
+    margin-top: 2px;
+}
+
+/* Butang Tambah Folder */
+.add-folder-btn {
+    background: #ff79c6; /* Warna pink tema kau */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    font-size: 14px;
+}
+.add-folder-btn:hover {
+    background: #ff92df;
+    transform: translateY(-2px);
+}
+.folder-card {
+    position: relative; /* Supaya butang boleh duduk kat penjuru */
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#entryFolder {
+    width: 100%;
+    padding: 10px;
+    background-color: #2c2c2c; /* Ikut warna tema abang */
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    /* Browser biasanya limitkan list ni automatik, 
+       tapi kita tambah ni untuk keselamatan */
+    appearance: none; 
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+/* Kalau folder banyak sangat, sesetengah browser akan 
+   aktifkan scroll secara automatik pada list option */
+#entryFolder option {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10px;
+}
+.delete-folder-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.delete-folder-btn:hover {
+    background: #ff4d4d;
+    color: white;
+    transform: scale(1.1);
+}
