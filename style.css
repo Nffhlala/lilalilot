@@ -1080,51 +1080,75 @@ body:not(.theme-dark):not(.theme-purple) .star-rating i {
     transform: scale(1.1);
 }
 /* --- RESPONSIVE FIX UNTUK PHONE --- */
-@media (max-width: 768px) {
-    /* 1. Sidebar jadi sorok/slide (Mobile Menu) */
+/* --- OPTIMASI KHAS UNTUK IPHONE & MOBILE --- */
+@media (max-width: 600px) {
+    /* 1. Body & Main Content - Buat sidebar jadi kat bawah (Bottom Nav) atau sorok terus */
+    body {
+        flex-direction: column; /* Tukar susunan ke atas-bawah */
+    }
+
     .sidebar {
-        width: 70px; /* Kecilkan sidebar */
-        padding: 10px 5px;
-    }
-    
-    .sidebar h2, .nav-link span {
-        display: none; /* Sorok teks, tinggal icon je */
-    }
-
-    /* 2. Grid Folder jadi 2 column saja */
-    #folder-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px;
-    }
-
-    /* 3. Kad Manhwa jadi 1 atau 2 column (Xiao syorkan 1 supaya poster besar) */
-    #entry-list {
-        grid-template-columns: 1fr !important; 
-        padding: 10px;
+        width: 100% !important;
+        height: auto !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        flex-direction: row !important; /* Susun menu melintang kat bawah */
+        justify-content: space-around;
+        padding: 10px 0;
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
     }
 
-    .card {
-        margin-bottom: 20px;
+    .sidebar h2, .sidebar .stats-sidebar {
+        display: none !important; /* Sorok tajuk & stats kat mobile */
     }
 
-    .card img {
-        height: 450px !important; /* Biar poster puas hati tengok kat phone */
+    .nav-link {
+        flex-direction: column;
+        font-size: 10px !important;
+        gap: 2px;
     }
 
-    /* 4. Kecilkan saiz tajuk dan butang */
     .main-content {
-        margin-left: 70px; /* Ikut lebar sidebar baru */
-        padding: 15px;
+        margin-left: 0 !important; /* Buang margin sebab sidebar dah pindah bawah */
+        padding: 10px;
+        padding-bottom: 80px; /* Ruang supaya tak kena tutup dengan bottom nav */
     }
 
-    #mainTitle {
-        font-size: 1.2rem;
+    /* 2. Grid Manhwa - Buat 2 column supaya tak terlalu besar sangat */
+    #entry-list {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 8px !important;
+        padding: 5px;
     }
 
-    /* 5. Modal biar penuh skrin phone */
+    /* 3. Kad - Adjust height supaya cantik kat skrin memanjang iPhone */
+    .card img {
+        height: 220px !important; /* Pendekkan sikit untuk 2 column */
+    }
+
+    .card-title-text {
+        font-size: 13px !important;
+        height: 35px; /* Limit height tajuk */
+    }
+
+    .rating-box {
+        font-size: 10px !important;
+    }
+
+    /* 4. Modal Fix - iPhone selalu ada masalah keyboard tutup input */
     .modal-content {
         width: 95% !important;
-        margin: 5% auto;
-        padding: 15px;
+        max-height: 90vh;
+        overflow-y: auto;
+        margin-top: 10px;
+    }
+
+    /* 5. Folder Grid */
+    #folder-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px;
     }
 }
