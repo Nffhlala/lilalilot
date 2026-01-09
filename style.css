@@ -1079,76 +1079,60 @@ body:not(.theme-dark):not(.theme-purple) .star-rating i {
     color: white;
     transform: scale(1.1);
 }
-/* --- RESPONSIVE FIX UNTUK PHONE --- */
-/* --- OPTIMASI KHAS UNTUK IPHONE & MOBILE --- */
-@media (max-width: 600px) {
-    /* 1. Body & Main Content - Buat sidebar jadi kat bawah (Bottom Nav) atau sorok terus */
+/* --- FIX TOTAL UNTUK IPHONE PORTRAIT (MENEGAK) --- */
+@media (max-width: 480px) {
+    /* 1. Paksa semua container jadi satu jalur ke bawah */
     body {
-        flex-direction: column; /* Tukar susunan ke atas-bawah */
+        display: block !important; 
+        overflow-x: hidden; /* Halang skrin goyang kiri-kanan */
     }
 
+    /* 2. Sidebar sorok terus (kita guna mode simple) */
     .sidebar {
-        width: 100% !important;
-        height: auto !important;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        z-index: 1000;
-        flex-direction: row !important; /* Susun menu melintang kat bawah */
-        justify-content: space-around;
-        padding: 10px 0;
-        border-radius: 15px 15px 0 0;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        display: none !important; 
     }
 
-    .sidebar h2, .sidebar .stats-sidebar {
-        display: none !important; /* Sorok tajuk & stats kat mobile */
-    }
-
-    .nav-link {
-        flex-direction: column;
-        font-size: 10px !important;
-        gap: 2px;
-    }
-
+    /* 3. Main content ambil 100% ruang */
     .main-content {
-        margin-left: 0 !important; /* Buang margin sebab sidebar dah pindah bawah */
-        padding: 10px;
-        padding-bottom: 80px; /* Ruang supaya tak kena tutup dengan bottom nav */
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box;
     }
 
-    /* 2. Grid Manhwa - Buat 2 column supaya tak terlalu besar sangat */
+    /* 4. Header & Search Box biar memanjang */
+    .search-container, .filter-row {
+        display: flex;
+        flex-direction: column; /* Susun input atas bawah */
+        gap: 10px;
+    }
+
+    input, select, button {
+        width: 100% !important; /* Semua butang/input jadi lebar penuh */
+        height: 45px; /* Senang jari nak tekan */
+    }
+
+    /* 5. GRID MANHWA - Ini yang selalu hancur */
     #entry-list {
-        grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 8px !important;
-        padding: 5px;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Paksa 2 kotak sebaris */
+        gap: 10px !important;
+        width: 100% !important;
     }
 
-    /* 3. Kad - Adjust height supaya cantik kat skrin memanjang iPhone */
+    /* 6. Kad Manhwa - Saiz iPhone */
+    .card {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
     .card img {
-        height: 220px !important; /* Pendekkan sikit untuk 2 column */
+        height: 200px !important; /* Kecilkan sikit poster supaya tak makan skrin */
+        object-fit: cover;
     }
 
-    .card-title-text {
-        font-size: 13px !important;
-        height: 35px; /* Limit height tajuk */
-    }
-
-    .rating-box {
-        font-size: 10px !important;
-    }
-
-    /* 4. Modal Fix - iPhone selalu ada masalah keyboard tutup input */
-    .modal-content {
-        width: 95% !important;
-        max-height: 90vh;
-        overflow-y: auto;
-        margin-top: 10px;
-    }
-
-    /* 5. Folder Grid */
+    /* 7. Tajuk Folder */
     #folder-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px;
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
