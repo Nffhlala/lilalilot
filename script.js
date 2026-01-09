@@ -448,15 +448,27 @@ function renderList(dataToDisplay = null) {
     const sortSelect = document.getElementById('sortSelect');
     const sortVal = sortSelect ? sortSelect.value : 'latest';
     if (sortVal === 'az') {
-        list.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
-    } else if (sortVal === 'za') {
-        list.sort((a, b) => (b.title || "").localeCompare(a.title || ""));
-    } else if (sortVal === 'masterpiece') {
-        list.sort((a, b) => (Number(b.storyRating || 0) + Number(b.artRating || 0)) - (Number(a.storyRating || 0) + Number(a.artRating || 0)));
-    } else if (sortVal === 'latest') {
-        list.sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
-
+    list.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+} else if (sortVal === 'za') {
+    list.sort((a, b) => (b.title || "").localeCompare(a.title || ""));
+} else if (sortVal === 'latest') {
+    // Susun ikut tarikh paling baru
+    list.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+} else if (sortVal === 'masterpiece') {
+    // MASTERPIECE: Rating Tinggi (10) duduk atas sekali
+    list.sort((a, b) => {
+        const totalB = Number(b.storyRating || 0) + Number(b.artRating || 0);
+        const totalA = Number(a.storyRating || 0) + Number(a.artRating || 0);
+        return totalB - totalA;
+    });
+} else if (sortVal === 'meh') {
+    // MEH: Rating Rendah (0) duduk atas sekali
+    list.sort((a, b) => {
+        const totalB = Number(b.storyRating || 0) + Number(b.artRating || 0);
+        const totalA = Number(a.storyRating || 0) + Number(a.artRating || 0);
+        return totalA - totalB; // Terbalikkan (A to B) untuk naikkan yang rendah
+    });
+}
     const container = document.getElementById('entry-list');
     if (!container) return;
     
