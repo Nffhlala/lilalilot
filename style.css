@@ -1079,3 +1079,52 @@ body:not(.theme-dark):not(.theme-purple) .star-rating i {
     color: white;
     transform: scale(1.1);
 }
+/* --- RESPONSIVE FIX UNTUK PHONE --- */
+@media (max-width: 768px) {
+    /* 1. Sidebar jadi sorok/slide (Mobile Menu) */
+    .sidebar {
+        width: 70px; /* Kecilkan sidebar */
+        padding: 10px 5px;
+    }
+    
+    .sidebar h2, .nav-link span {
+        display: none; /* Sorok teks, tinggal icon je */
+    }
+
+    /* 2. Grid Folder jadi 2 column saja */
+    #folder-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+
+    /* 3. Kad Manhwa jadi 1 atau 2 column (Xiao syorkan 1 supaya poster besar) */
+    #entry-list {
+        grid-template-columns: 1fr !important; 
+        padding: 10px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card img {
+        height: 450px !important; /* Biar poster puas hati tengok kat phone */
+    }
+
+    /* 4. Kecilkan saiz tajuk dan butang */
+    .main-content {
+        margin-left: 70px; /* Ikut lebar sidebar baru */
+        padding: 15px;
+    }
+
+    #mainTitle {
+        font-size: 1.2rem;
+    }
+
+    /* 5. Modal biar penuh skrin phone */
+    .modal-content {
+        width: 95% !important;
+        margin: 5% auto;
+        padding: 15px;
+    }
+}
