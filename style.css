@@ -1079,60 +1079,76 @@ body:not(.theme-dark):not(.theme-purple) .star-rating i {
     color: white;
     transform: scale(1.1);
 }
-/* --- FIX TOTAL UNTUK IPHONE PORTRAIT (MENEGAK) --- */
-@media (max-width: 480px) {
-    /* 1. Paksa semua container jadi satu jalur ke bawah */
+/* --- FIX TOTAL UNTUK IPHONE/MOBILE (PORTRAIT) --- */
+@media (max-width: 600px) {
+    /* 1. Reset Body & Layout Utama */
     body {
-        display: block !important; 
-        overflow-x: hidden; /* Halang skrin goyang kiri-kanan */
+        display: block !important; /* Buang flex laptop */
+        overflow-x: hidden !important; /* Halang skrin lari kiri-kanan */
+        width: 100vw;
     }
 
-    /* 2. Sidebar sorok terus (kita guna mode simple) */
-    .sidebar {
-        display: none !important; 
+    /* 2. Sembunyikan Sidebar & Sidebar Toggle kat iPhone */
+    .sidebar, .toggle-btn, .sidebar-toggle {
+        display: none !important;
     }
 
-    /* 3. Main content ambil 100% ruang */
+    /* 3. Paksa Content ambil 100% skrin tanpa margin */
     .main-content {
-        margin: 0 !important;
-        padding: 10px !important;
+        margin-left: 0 !important; /* PENTING: Buang ruang kosong kiri */
+        padding: 15px !important;
         width: 100% !important;
+        box-sizing: border-box; /* Pastikan padding tak buat skrin lebar */
+    }
+
+    /* 4. Tajuk Besar biar tengah */
+    #mainTitle {
+        font-size: 24px !important;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* 5. Search Bar & Controls jadi lebar penuh */
+    .search-container, .filter-row, .stats-row {
+        display: flex !important;
+        flex-direction: column !important; /* Susun ke bawah */
+        width: 100% !important;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    input, select, button, .stats-card {
+        width: 100% !important; /* Semua kotak jadi lebar skrin */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         box-sizing: border-box;
     }
 
-    /* 4. Header & Search Box biar memanjang */
-    .search-container, .filter-row {
-        display: flex;
-        flex-direction: column; /* Susun input atas bawah */
-        gap: 10px;
-    }
-
-    input, select, button {
-        width: 100% !important; /* Semua butang/input jadi lebar penuh */
-        height: 45px; /* Senang jari nak tekan */
-    }
-
-    /* 5. GRID MANHWA - Ini yang selalu hancur */
+    /* 6. GRID MANHWA - Paksa 1 baris 1 kad (lebih kemas untuk iPhone) */
     #entry-list {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* Paksa 2 kotak sebaris */
-        gap: 10px !important;
-        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 0 !important;
     }
 
-    /* 6. Kad Manhwa - Saiz iPhone */
+    /* 7. KAD MANHWA - Biar nampak macam list Instagram */
     .card {
         width: 100% !important;
-        margin: 0 !important;
+        max-width: 100% !important;
+        margin: 0 0 15px 0 !important;
+        display: block !important;
     }
 
     .card img {
-        height: 200px !important; /* Kecilkan sikit poster supaya tak makan skrin */
+        width: 100% !important;
+        height: 300px !important; /* Biar poster nampak puas */
         object-fit: cover;
     }
 
-    /* 7. Tajuk Folder */
+    /* 8. Folder Grid (Reading List) */
     #folder-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: 1fr 1fr !important; /* Folder biar 2 sebaris */
+        gap: 10px;
     }
 }
